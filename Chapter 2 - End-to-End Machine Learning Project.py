@@ -52,7 +52,11 @@ plt.show()
 
 import numpy as np
 
+# to make this notebook's output identical at every run
+np.random.seed(42)
 
+
+# creating the split function
 def split_train_test(data, test_ratio):
     shuffled_indices = np.random.permutation(len(data))
     test_set_size = int(len(data) * test_ratio)
@@ -61,6 +65,7 @@ def split_train_test(data, test_ratio):
     return data.iloc[train_indices], data.iloc[test_indices]
 
 
+# calling the split functino
 train_set, test_set = split_train_test(housing, 0.2)
 print(len(train_set))
 print(len(test_set))
