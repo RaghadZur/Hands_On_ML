@@ -95,3 +95,5 @@ train_set, test_set = split_train_test_by_id(housing_with_id, 0.2, "index")
 
 housing_with_id["id"] = housing["longitude"] * 1000 + housing["latitude"]
 train_set, test_set = split_train_test_by_id(housing_with_id, 0.2, "id")
+
+test_set.head()
