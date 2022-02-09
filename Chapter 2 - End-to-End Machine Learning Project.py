@@ -92,3 +92,6 @@ def test_set_check(identifier, test_ratio, hash=hashlib.md5):
 
 housing_with_id = housing.reset_index()   # adds an `index` column
 train_set, test_set = split_train_test_by_id(housing_with_id, 0.2, "index")
+
+housing_with_id["id"] = housing["longitude"] * 1000 + housing["latitude"]
+train_set, test_set = split_train_test_by_id(housing_with_id, 0.2, "id")
