@@ -90,4 +90,5 @@ def test_set_check(identifier, test_ratio, hash=hashlib.md5):
 def test_set_check(identifier, test_ratio, hash=hashlib.md5):
     return bytearray(hash(np.int64(identifier)).digest())[-1] < 256 * test_ratio
 
-
+housing_with_id = housing.reset_index()   # adds an `index` column
+train_set, test_set = split_train_test_by_id(housing_with_id, 0.2, "index")
