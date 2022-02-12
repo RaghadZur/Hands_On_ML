@@ -2,15 +2,19 @@
 
 # DOWNLOADING THE DATA
 
+# IMPORTING THE NEEDED LIBRARIES
 import os
 import tarfile
 import urllib.request
 
+# DEFINING AND ASSIGNING THE ROOT/URL FOR THE DATA REPO ON GITHUB
 DOWNLOAD_ROOT = "https://raw.githubusercontent.com/ageron/handson-ml2/master/"
 HOUSING_PATH = os.path.join("datasets", "housing")
 HOUSING_URL = DOWNLOAD_ROOT + "datasets/housing/housing.tgz"
 
 
+# CREATING A FUNCTION TO AUTOMATE THE PROCESS OF FETCHING DATA FROM GITHUB REPOS
+# THIS FUNCTION CREATES A DIRECTORY WITH THE DATA WE JUST FETCHED
 def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
     if not os.path.isdir(housing_path):
         os.makedirs(housing_path)
@@ -20,7 +24,7 @@ def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
     housing_tgz.extractall(path=housing_path)
     housing_tgz.close()
 
-
+# CALLING THE FUNCTION WE CREATED
 fetch_housing_data()
 
 # LOADING THE DATA
@@ -73,8 +77,10 @@ print(len(test_set))
 
 from zlib import crc32
 
+
 def test_set_check(identifier, test_ratio):
-    return crc32(np.int64(identifier)) & 0xffffffff < test_ratio * 2**32
+    return crc32(np.int64(identifier)) & 0xffffffff < test_ratio * 2 ** 32
+
 
 def split_train_test_by_id(data, test_ratio, id_column):
     ids = data[id_column]
@@ -84,13 +90,16 @@ def split_train_test_by_id(data, test_ratio, id_column):
 
 import hashlib
 
+
 def test_set_check(identifier, test_ratio, hash=hashlib.md5):
     return hash(np.int64(identifier)).digest()[-1] < 256 * test_ratio
+
 
 def test_set_check(identifier, test_ratio, hash=hashlib.md5):
     return bytearray(hash(np.int64(identifier)).digest())[-1] < 256 * test_ratio
 
-housing_with_id = housing.reset_index()   # adds an `index` column
+
+housing_with_id = housing.reset_index()  # adds an `index` column
 train_set, test_set = split_train_test_by_id(housing_with_id, 0.2, "index")
 
 housing_with_id["id"] = housing["longitude"] * 1000 + housing["latitude"]
