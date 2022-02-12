@@ -60,9 +60,11 @@ print(housing['ocean_proximity'].value_counts())
 # RETURNING A SUMMARY OF THE NUMERICAL ATTRIBUTES USING THE DESCRIBE METHOD
 print(housing.describe())
 
+# IMPORTING MATPLOTLIB TO VISUALISE THE DATA
 import matplotlib.pyplot as plt
 
-# Plotting a histogram for the numerical attributes
+# PLOT A HISTOGRAM FOR THE NUMERICAL ATTRIBUTES
+# HISTOGRAMS PLOT THE NUMBER OF INSTANCES AT A GIVEN VALUE RANGE FOR EACH ATTRIBUTE
 housing.hist(bins=50, figsize=(20, 15))
 plt.show()
 
