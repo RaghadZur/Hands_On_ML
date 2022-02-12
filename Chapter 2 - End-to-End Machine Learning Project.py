@@ -109,5 +109,8 @@ print(len(test_set))
 # USING PRE-BUILD SCIKIT-LEARN SPLIT FUNCTION--------------------------------------------------------------------------
 
 # IMPORTING THE SPLIT FUNCTION FROM THE SKLEARN LIBRARY
-import sklearn
 from sklearn.model_selection import train_test_split
+
+# CALLING THE PRE-BUILD FUNCTION
+train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
+
