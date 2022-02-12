@@ -88,7 +88,9 @@ import numpy as np
 # SETTING A RANDOM SEED VALUE TO MAKE SURE THE SAME EXACT SHUFFLED DATA IS USED EACH TIME WE RERUN THE CODE
 np.random.seed(42)
 
+
 # DEFINING OUR OWN FUNCTION TO SPLIT THE DATA
+# THE FUNCTION TAKES IN THE DATAFRAME AND TEST RATIO AS INPUT
 def split_train_test(data, test_ratio):
     shuffled_indices = np.random.permutation(len(data))
     test_set_size = int(len(data) * test_ratio)
@@ -97,30 +99,15 @@ def split_train_test(data, test_ratio):
     return data.iloc[train_indices], data.iloc[test_indices]
 
 
-# CALLING OUR OWN SPLIT FUNCTION
-
+# CALLING THE SPLIT FUNCTION WE JUST CREATED
 train_set, test_set = split_train_test(housing, 0.2)
+
+# RETURNING THE LENGTHS OF THE THE TRAIN AND TEST SET TO CHECK IF THE RATIO WAS DONE CORRECTLY
 print(len(train_set))
 print(len(test_set))
 
+# USING PRE-BUILD SCIKIT-LEARN SPLIT FUNCTION--------------------------------------------------------------------------
 
-import hashlib
-
-
-def test_set_check(identifier, test_ratio, hash=hashlib.md5):
-    return hash(np.int64(identifier)).digest()[-1] < 256 * test_ratio
-
-
-def test_set_check(identifier, test_ratio, hash=hashlib.md5):
-    return bytearray(hash(np.int64(identifier)).digest())[-1] < 256 * test_ratio
-
-
-housing_with_id = housing.reset_index()  # adds an `index` column
-train_set, test_set = split_train_test_by_id(housing_with_id, 0.2, "index")
-
-housing_with_id["id"] = housing["longitude"] * 1000 + housing["latitude"]
-train_set, test_set = split_train_test_by_id(housing_with_id, 0.2, "id")
-
-test_set.head()
-
-# USING PRE-BUILD SCIKIT-LEARN SPLIT FUNCTOIN
+# IMPORTING THE SPLIT FUNCTION FROM THE SKLEARN LIBRARY
+import sklearn
+from sklearn.model_selection import train_test_split
