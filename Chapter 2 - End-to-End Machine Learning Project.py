@@ -1,6 +1,6 @@
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% GETTING THE DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% GETTING THE DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# DOWNLOADING THE DATA
+# DOWNLOADING THE DATA-------------------------------------------------------------------------------------------------
 
 # IMPORTING THE NEEDED LIBRARIES
 import os
@@ -24,26 +24,37 @@ def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
     housing_tgz.extractall(path=housing_path)
     housing_tgz.close()
 
+
 # CALLING THE FUNCTION WE CREATED
 fetch_housing_data()
 
-# LOADING THE DATA
+# LOADING THE DATA------------------------------------------------------------------------------------------------------
 
+# IMPORTING PANDAS LIBRARY TO HANDLE THE DATAFRAME
 import pandas as pd
 
 
+# DEFINING A FUNCTION TO LOAD THE DATA INTO OUR SCRIPT
 def load_housing_data(housing_path=HOUSING_PATH):
     csv_path = os.path.join(housing_path, "housing.csv")
     return pd.read_csv(csv_path)
 
 
+# CALLING THE FUNCTION WE CREATED
 housing = load_housing_data()
 
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DISCOVERING THE DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EXPLORING THE DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# RETURNING THE TOP FIVE ROWS USING THE HEAD METHOD
 print(housing.head())
 
+# RETURNING A DESCRIPTION OF THE DATA USING THE INFO METHOD
+# WE NOTICE THAT THE TOTAL_BEDROOMS ATTRIBUTE HAS 20433 NON-NULL VALUES WHILE ALL OTHERS CONTAIN 20640
+# WE ALSO NOTICE THAT ALL ATTRIBUTES ARE NUMERICAL EXCEPT FOR THE OCEAN_PROXIMITY WHICH HAS AN OBJECT DATA TYPE
+# OUR ASSUMPTION IS THAT OCEAN_PROXIMITY ATTRIBUTE IS A CATEGORICAL ATTRIBUTE
 print(housing.info())
 
+#
 print(housing.describe())
 
 import matplotlib.pyplot as plt
@@ -52,7 +63,7 @@ import matplotlib.pyplot as plt
 housing.hist(bins=50, figsize=(20, 15))
 plt.show()
 
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SPLITTING THE DATASET %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SPLITTING THE DATASET %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 import numpy as np
 
