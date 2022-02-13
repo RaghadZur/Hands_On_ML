@@ -217,11 +217,13 @@ plt.imshow(california_img, extent=[-124.55, -113.80, 32.45, 42.05], alpha=0.5,
 plt.ylabel("Latitude", fontsize=14)
 plt.xlabel("Longitude", fontsize=14)
 
+# SETTING THE COLOURBAR
 prices = housing["median_house_value"]
 tick_values = np.linspace(prices.min(), prices.max(), 11)
 cbar = plt.colorbar(ticks=tick_values/prices.max())
 cbar.ax.set_yticklabels(["$%dk"%(round(v/1000)) for v in tick_values], fontsize=14)
-cbar.set_label('Median House Value', fontsize=16)
 
+# LABELLING THE COLOURBAR AND SHOWING THE PLOT
+cbar.set_label('Median House Value', fontsize=16)
 plt.legend(fontsize=16)
 plt.show()
