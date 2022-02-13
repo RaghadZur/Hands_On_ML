@@ -43,7 +43,7 @@ def load_housing_data(housing_path=HOUSING_PATH):
 # CALLING THE FUNCTION WE CREATED
 housing = load_housing_data()
 
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EXPLORING THE DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INITIAL DATA EXPLORATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # RETURNING THE TOP FIVE ROWS USING THE HEAD METHOD
 print(housing.head())
@@ -114,3 +114,12 @@ from sklearn.model_selection import train_test_split
 # CALLING THE PRE-BUILD FUNCTION
 train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 
+# STRATIFIED SAMPLING TO OVERCOME BIAS ISSUE --------------------------------------------------------------------------
+
+"""
+CONSIDERING THE MEDIAN INCOME IS AN IMPORTANT ATTRIBUTE TO PREDICT THE HOUSING PRICES, WE NEED TO ENSURE THAT THE TEST
+SET IS REPRESENTATIVE OF THE VARIOUS CATEGORIES OF INCOME IN THE WHOLE DATASET. HOWEVER, SINCE THE MEDIAN INCOME IN A 
+NUMERICAL ATTRIBUTE, WE WILL BE CREATING AN INCOME CATEGORY ATTRIBUTE
+"""
+
+# CREATING A CATEGORICAL ATTRIBUTE FOR THE MEDIAN_INCOME NUMERICAL ATTRIBUTE
