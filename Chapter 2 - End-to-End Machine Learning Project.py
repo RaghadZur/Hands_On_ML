@@ -258,4 +258,16 @@ housing.plot(kind="scatter",
              alpha=0.1)
 plt.show()
 
+# COMBINING ATTRIBUTES ------------------------------------------------------------------------------------------------
+
+# COMBING SOME ATTRIBUTES FOR A MORE USEFUL INFORMATION
+housing["rooms_per_household"] = housing["total_rooms"]/housing["households"]
+housing["bedrooms_per_room"] = housing["total_bedrooms"]/housing["total_rooms"]
+housing["population_per_household"]=housing["population"]/housing["households"]
+
+# UPDATING THE CORRELATION MATRIX
+correlation_matrix = housing.corr()
+
+# PRINTING THE NEW CORRELATION VALUES WITH THE COMBINED ATTRIBUTES
+print(correlation_matrix["median_house_value"].sort_values(ascending=False))
 
