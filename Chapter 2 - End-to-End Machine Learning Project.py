@@ -341,6 +341,7 @@ housing_tr = pd.DataFrame(x, columns=housing_num.columns, index=housing_num.inde
 
 """
 THE ONLY CATEGORICAL ATTRIBUTE IN OUR DATASET IS THE OCEAN_PROXIMITY ATTRIBUTE SO WE WILL ONLY BE LOOKING AT IT HERE
+THE METHODS BELOW WILL CONVERT THE DATA FROM TEXT TO NUMBERS
 """
 
 housing_categ = housing[["ocean_proximity"]]
@@ -351,3 +352,24 @@ print(housing_categ.head(15))
 # CALLING VALUE_COUNTS METHOD TO VIEW THE DIFFERENT CATEGORIES AND THEIR DISTRIBUTION
 print(housing_categ.value_counts())
 
+# ORDINAL ENCODER ---------------------------------------------------------------------------------
+"""
+ORDINAL ENCODING CONVERT CATEGORICAL DATA INTO A DATA WHERE THE ORDER OF THE CATEGORIES MATTERS.
+SINCE WE HAVE 5 CATEGORIES IN THE OCEAN_PROXIMITY ATTRIBUTE, OUR DATA WILL BE CONVERTED TO NUMERICAL DATA FROM 0 TO 4
+I.E. "<1H OCEAN" --> 0, "INLAND" --> 1, ... , "NEAR OCEAN" --> 4
+
+IN ORDINAL ENCODING, ORDER MATTER WHICH MEANS CATEGORIES 0 AND 1 ARE CONSIDERED CLOSER TO EACH OTHER THAN CATEGORIES
+ 0 AND 4 WHICH IS NOT TRUE IN OUR GIVEN DATA BUT WE WILL DEMONSTRATE THE METHOD BELOW ANYWAYS.
+"""
+
+# IMPORTING THE ORDINAL ENCODER CLASS IN SK-LEARN
+from sklearn.preprocessing import OrdinalEncoder
+
+# FITTING THE ORDINAL ENCODER METHOD INTO THE DATA TO CONVERT IT
+ordinal_encoder = OrdinalEncoder()
+housing_categ_ordinal = ordinal_encoder.fit_transform(housing_categ)
+
+# PRINTING THE NEW CONVERTED DATA
+print(housing_categ_ordinal[:15])
+
+# ONE HOT ENCODER ---------------------------------------------------------------------------------
