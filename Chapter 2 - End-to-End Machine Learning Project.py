@@ -1,6 +1,6 @@
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% GETTING THE DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# DOWNLOADING THE DATA-------------------------------------------------------------------------------------------------
+# DOWNLOADING THE DATA-------------------------------------------------------------------------------
 
 # IMPORTING THE NEEDED LIBRARIES
 import os
@@ -28,7 +28,7 @@ def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
 # CALLING THE FUNCTION WE CREATED
 fetch_housing_data()
 
-# LOADING THE DATA------------------------------------------------------------------------------------------------------
+# LOADING THE DATA-------------------------------------------------------------------------------------
 
 # IMPORTING PANDAS LIBRARY TO HANDLE THE DATAFRAME
 import pandas as pd
@@ -80,7 +80,7 @@ CONCLUSIONS THAT CAN BE MADE FROM THE HISTOGRAM ABOVE:
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SPLITTING THE DATASET %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# CREATING OUR OWN SPLIT FUNCTION -------------------------------------------------------------------------------------
+# CREATING OUR OWN SPLIT FUNCTION --------------------------------------------------------------------
 
 # IMPORTING NUMPY LIBRARY
 import numpy as np
@@ -106,7 +106,7 @@ train_set, test_set = split_train_test(housing, 0.2)
 print(len(train_set))
 print(len(test_set))
 
-# USING PRE-BUILD SCIKIT-LEARN SPLIT FUNCTION--------------------------------------------------------------------------
+# USING PRE-BUILD SCIKIT-LEARN SPLIT FUNCTION--------------------------------------------------------
 
 # IMPORTING THE SPLIT FUNCTION FROM THE SKLEARN LIBRARY
 from sklearn.model_selection import train_test_split
@@ -114,7 +114,7 @@ from sklearn.model_selection import train_test_split
 # CALLING THE PRE-BUILD FUNCTION
 train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 
-# STRATIFIED SAMPLING TO OVERCOME BIAS ISSUE IF NEEDED-----------------------------------------------------------------
+# STRATIFIED SAMPLING TO OVERCOME BIAS ISSUE IF NEEDED------------------------------------------------
 
 """
 CONSIDERING A SITUATION WHERE THE MEDIAN INCOME IS AN IMPORTANT ATTRIBUTE TO PREDICT THE HOUSING PRICES, WE WOULD 
@@ -153,7 +153,7 @@ for set_ in (strat_train_set, strat_test_set):
 # MAKING A COPY OF THE TRAINING SET (TO PREVENT HARMING THE DATASET)
 housing = strat_train_set.copy()
 
-# VISUALISING GEOGRAPHICAL DATA ---------------------------------------------------------------------------------------
+# VISUALISING GEOGRAPHICAL DATA ----------------------------------------------------------------------
 
 """
 THE DATASET CONTAINS TWO GEOGRAPHICAL ATTRIBUTES WHICH ARE LATITUDE AND LONGITUDE WHICH WE CAN USE TO VISUALISE 
@@ -181,7 +181,7 @@ housing.plot(kind="scatter",
              )
 plt.show()
 
-# PLOTTING THE GEOGRAPHICAL SCATTER PLOT ON THE MAP IMAGE---------------------------------------------------------------
+# PLOTTING THE GEOGRAPHICAL SCATTER PLOT ON THE MAP IMAGE--------------------------------------------
 
 # DOWNLOADING THE MAP IMAGE INTO OUR DIRECTORY
 images_path = os.path.join("C:/Users/ragha/OneDrive/Desktop/Hands_On_ML", "images", "end_to_end_project")
@@ -228,7 +228,7 @@ cbar.set_label('Median House Value', fontsize=16)
 plt.legend(fontsize=16)
 plt.show()
 
-# LOOKING FOR CORRELATIONS --------------------------------------------------------------------------------------------
+# LOOKING FOR CORRELATIONS --------------------------------------------------------------------------
 
 # CORRELATION MATRIX BETWEEN EVERY ATTRIBUTE
 correlation_matrix = housing.corr()
@@ -258,7 +258,7 @@ housing.plot(kind="scatter",
              alpha=0.1)
 plt.show()
 
-# COMBINING ATTRIBUTES ------------------------------------------------------------------------------------------------
+# COMBINING ATTRIBUTES ------------------------------------------------------------------------------
 
 # COMBING SOME ATTRIBUTES FOR A MORE USEFUL INFORMATION
 housing["rooms_per_household"] = housing["total_rooms"] / housing["households"]
@@ -277,7 +277,7 @@ WE SEE THAT THE NEW COMBINED ATTRIBUTES DO GIVE A SLIGHTLY BETTER CORRELATION VA
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PREPARING THE DATASET %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# SEPARATING THE PREDICTORS AND THE LABELS ----------------------------------------------------------------------------
+# SEPARATING THE PREDICTORS AND THE LABELS ----------------------------------------------------------
 
 # CREATING A COPY OF THE DATA AFTER DROPPING THE LABEL'S COLUMN, SO WE ARE LEFT WITH THE PREDICTORS ONLY
 housing = strat_train_set.drop("median_house_value", axis=1)
@@ -285,7 +285,7 @@ housing = strat_train_set.drop("median_house_value", axis=1)
 # COPYING THE TARGETS COLUMN
 housing_labels = strat_train_set["median_house_value"].copy()
 
-# HANDLING MISSING VALUES----------------------------------------------------------------------------------------------
+# HANDLING MISSING VALUES----------------------------------------------------------------------------
 """
 TO HANDLE MISSING VALUES IN A DATASET, WE HAVE THREE OPTIONS:
 1 - DROP THE ENTIRE COLUMN
@@ -308,7 +308,7 @@ sample_incomplete_rows.dropna(subset=["total_bedrooms"])
 median = housing["total_bedrooms"].median()
 sample_incomplete_rows["total_bedrooms"].fillna(median, inplace=True)
 
-# HANDLING MISSING VALUES USING SK-LEARN-------------------------------------------------------------------------------
+# HANDLING MISSING VALUES USING SK-LEARN-------------------------------------------------------------
 
 # IMPORTING THE SIMPLEIMPUTER CLASS FROM SK-LEARN
 from sklearn.impute import SimpleImputer
@@ -335,7 +335,7 @@ x = imputer.transform(housing_num)
 # CONVERTING THE DATASET BACK INTO A DATAFRAME AS THE IMPUTER CONVERTS THE DATA A PLAIN NUMPY ARRAYS
 housing_tr = pd.DataFrame(x, columns=housing_num.columns, index=housing_num.index)
 
-# HANDLING TEXT AND CATEGORICAL ATTRIBUTES-----------------------------------------------------------------------------
+# HANDLING TEXT AND CATEGORICAL ATTRIBUTES-----------------------------------------------------------
 
 """
 THE ONLY CATEGORICAL ATTRIBUTE IN OUR DATASET IS THE OCEAN_PROXIMITY ATTRIBUTE SO WE WILL ONLY BE LOOKING AT IT HERE
