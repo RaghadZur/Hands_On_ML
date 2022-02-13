@@ -285,7 +285,9 @@ housing = strat_train_set.drop("median_house_value", axis=1)
 # COPYING THE TARGETS COLUMN
 housing_labels = strat_train_set["median_house_value"].copy()
 
-# HANDLING MISSING VALUES----------------------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HANDLING MISSING VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# HANDLING MISSING VALUES USING BASIC PYTHON------------------------------------------------------------------
 """
 TO HANDLE MISSING VALUES IN A DATASET, WE HAVE THREE OPTIONS:
 1 - DROP THE ENTIRE COLUMN
@@ -335,7 +337,7 @@ x = imputer.transform(housing_num)
 # CONVERTING THE DATASET BACK INTO A DATAFRAME AS THE IMPUTER CONVERTS THE DATA A PLAIN NUMPY ARRAYS
 housing_tr = pd.DataFrame(x, columns=housing_num.columns, index=housing_num.index)
 
-# HANDLING TEXT AND CATEGORICAL ATTRIBUTES-----------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HANDLING TEXT AND CATEGORICAL ATTRIBUTES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 """
 THE ONLY CATEGORICAL ATTRIBUTE IN OUR DATASET IS THE OCEAN_PROXIMITY ATTRIBUTE SO WE WILL ONLY BE LOOKING AT IT HERE
