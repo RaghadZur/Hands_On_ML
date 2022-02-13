@@ -275,7 +275,7 @@ print(correlation_matrix["median_house_value"].sort_values(ascending=False))
 WE SEE THAT THE NEW COMBINED ATTRIBUTES DO GIVE A SLIGHTLY BETTER CORRELATION VALUES THAN THE ORIGINAL VALUES
 """
 
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PREPARING THE DATASET FOR ML PROBLEMS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PREPARING THE DATASET %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # SEPARATING THE PREDICTORS AND THE LABELS ----------------------------------------------------------------------------
 
@@ -334,3 +334,18 @@ x = imputer.transform(housing_num)
 
 # CONVERTING THE DATASET BACK INTO A DATAFRAME AS THE IMPUTER CONVERTS THE DATA A PLAIN NUMPY ARRAYS
 housing_tr = pd.DataFrame(x, columns=housing_num.columns, index=housing_num.index)
+
+# HANDLING TEXT AND CATEGORICAL ATTRIBUTES-----------------------------------------------------------------------------
+
+"""
+THE ONLY CATEGORICAL ATTRIBUTE IN OUR DATASET IS THE OCEAN_PROXIMITY ATTRIBUTE SO WE WILL ONLY BE LOOKING AT IT HERE
+"""
+
+housing_categ = housing[["ocean_proximity"]]
+
+# RETURNING THE FIRST 15 INSTANCES OF THIS ATTRIBUTE
+print(housing_categ.head(15))
+
+# CALLING VALUE_COUNTS METHOD TO VIEW THE DIFFERENT CATEGORIES AND THEIR DISTRIBUTION
+print(housing_categ.value_counts())
+
