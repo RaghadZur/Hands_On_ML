@@ -373,4 +373,11 @@ housing_categ_ordinal = ordinal_encoder.fit_transform(housing_categ)
 # PRINTING THE NEW CONVERTED DATA
 print(housing_categ_ordinal[:15])
 
-# ONE HOT ENCODER ---------------------------------------------------------------------------------
+# ONE-HOT ENCODER ---------------------------------------------------------------------------------
+"""
+ONE-HOT ENCODER IS ANOTHER METHOD TO CONVERT CATEGORICAL DATA INTO NUMERICAL DATA RATHER THAN TEXT.
+THIS METHOD CREATES A BINARY ATTRIBUTE FOR EVERY CATEGORY IN THE ORIGINAL CATEGORICAL ATTRIBUTE, I.E. IF WE HAVE 5
+CATEGORIES IN OUR ORIGINAL ATTRIBUTE THEN WE WILL HAVE 5 DIFFERENT BINARY ATTRIBUTE TO REPRESENT EACH CATEGORY.
+
+
+"""
