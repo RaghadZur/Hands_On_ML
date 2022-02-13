@@ -165,4 +165,18 @@ housing.plot(kind="scatter", x="longitude", y="latitude")
 
 # SETTING ALPHA = 0.1, TO VISUALISE THE PATTERNS BETTER IN THE SCATTER PLOT
 housing.plot(kind="scatter", x="longitude", y="latitude", alpha=0.1)
+
+# A MORE DETAILED AND REPRESENTATIVE SCATTER PLOT
+# PARAMETER ALPHA IS HOW TRANSPARENT EACH CIRCLE IS
+# PARAMETER C STANDS FOR COLOUR, MEANING THE COLOUR OF EACH CIRCLE ON THE PLOT IS DEPENDANT ON THE PRICE VALUE
+# PARAMETER S STANDS FOR SIZE, MEANING THE SIZE OF EACH CIRCLE ON THE PLOT IS DEPENDANT ON THE POPULATION IN THE AREA
+
+housing.plot(kind="scatter",
+             x="longitude",
+             y="latitude",
+             alpha=0.4,
+             c="median_house_value",
+             s=housing["population"]/100,
+             cmap=plt.get_cmap("jet")
+             )
 plt.show()
