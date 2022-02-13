@@ -129,3 +129,19 @@ housing["income_categ"] = pd.cut(housing["median_income"],
 
 # HISTOGRAM OF THE NEW ATTRIBUTE
 housing["income_categ"].hist()
+
+# IMPORTING SKLEARN FUNCTION TO PERFORM STRATIFIED SAMPLING
+from sklearn.model_selection import StratifiedShuffleSplit
+
+# CALLING THE FUNCTION AND SPLITTING THE DATA
+split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
+for train_index, test_index in split.split(housing, housing["income_categ"]):
+    strat_train_set = housing.loc[train_index]
+    strat_test_set = housing.loc[test_index]
+
+# CHECKING THE PROPORTIONS OF THE CATEGORIES IN THE NEW SPLITTED DATA
+print(strat_test_set["income_categ"].value_counts() / len(strat_test_set))
+
+# CHECKING THE PROPORTIONS OF THE CATEGORIES IN THE ORIGINAL DATA TO COMPARE IT TO OUR SPLITTED DATA PROPORTIONS
+print(housing["income_categ"].value_counts() / len(housing))
+
