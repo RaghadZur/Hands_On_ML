@@ -327,4 +327,6 @@ imputer.fit(housing_num)
 print(imputer.statistics_)
 
 # TO CHECK THE ABOVE MEDIAN VALUES ARE CORRECT, WE CAN COMPARE IT TO MANUALLY COMPUTED MEDIAN VALUES BELOW
+
 print(housing_num.median().values)
+
