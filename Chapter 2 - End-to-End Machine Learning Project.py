@@ -274,3 +274,38 @@ print(correlation_matrix["median_house_value"].sort_values(ascending=False))
 """
 WE SEE THAT THE NEW COMBINED ATTRIBUTES DO GIVE A SLIGHTLY BETTER CORRELATION VALUES THAN THE ORIGINAL VALUES
 """
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PREPARING THE DATASET FOR ML PROBLEMS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# SEPARATING THE PREDICTORS AND THE LABELS ----------------------------------------------------------------------------
+
+# CREATING A COPY OF THE DATA AFTER DROPPING THE LABEL'S COLUMN, SO WE ARE LEFT WITH THE PREDICTORS ONLY
+housing = strat_train_set.drop("median_house_value", axis=1)
+
+# COPYING THE TARGETS COLUMN
+housing_labels = strat_train_set["median_house_value"].copy()
+
+
+# CLEANING THE DATA----------------------------------------------------------------------------------------------------
+"""
+TO HANDLE MISSING VALUES IN A DATASET, WE HAVE THREE OPTIONS:
+1 - DROP THE ENTIRE COLUMN
+2 - DROP THE ROWS CONTAINING MISSING VALUES IN THE SPECIFIC COLUMN
+3 - REPLACE THE MISSING VALUES WITH THE MEAN/MEDIAN
+"""
+
+# THE ATTRIBUTE TOTAL_BEDROOMS CONTAINS LOTS OF MISSING VALUES SO WE CAN DO ONE OF THE FOLLOWING TO HANDLE IT:
+
+# LETS FIRST CREATE A COPY SO WE DONT HARM THE ORIGINAL TRAINING SET WHICH WE WILL USE LATER
+sample_incomplete_rows = housing[housing.isnull().any(axis=1)].head()
+print(sample_incomplete_rows)
+
+# ONE - DROP THE ENTIRE COLUMN
+sample_incomplete_rows.drop("total_bedrooms", axis=1)
+
+# TWO - DROP THE ROWS CONTAINING MISSING VALUES IN THAT SPECIFIED COLUMN
+sample_incomplete_rows.dropna(subset=["total_bedrooms"])
+
+# THREE - REPLACE THE MISSING VALUES WITH THE MEAN VALUE OF THE COLUMN
+median = housing["total_bedrooms"].median()
+sample_incomplete_rows["total_bedrooms"].fillna(median, inplace=True)
