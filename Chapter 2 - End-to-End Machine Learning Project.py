@@ -246,7 +246,16 @@ We can notice from the above the following:
 # IMPORTING NEEDED LIBRARIES TO VISUALISE CORRELATION MATRIX
 from pandas.plotting import scatter_matrix
 
-# SETTING THE ATTRIBUTES WE WANT TO VISUALISE
+# SETTING THE ATTRIBUTES WE WANT TO VISUALISE THEIR CORRELATION
 attributes = ["median_house_value", "median_income", "total_bedrooms", "latitude"]
 scatter_matrix(housing[attributes], figsize=(12, 8))
 plt.show()
+
+# PLOTTING INDIVIDUAL CORRELATION SCATTER PLOTS OF MEDIAN_INCOME AND MEDIAN_HOUSE_VALUE
+housing.plot(kind="scatter",
+             x="median_income",
+             y="median_house_value",
+             alpha=0.1)
+plt.show()
+
+
