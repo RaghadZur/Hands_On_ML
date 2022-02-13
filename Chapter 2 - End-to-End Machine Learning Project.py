@@ -235,3 +235,18 @@ correlation_matrix = housing.corr()
 
 # SINCE WE ARE INTERESTED IN HOUSE VALUES, WE CAN CHECK THE CORRELATION BETWEEN EACH ATTRIBUTE AND THE HOUSE VALUES
 print(correlation_matrix["median_house_value"].sort_values(ascending=False))
+
+""" 
+We can notice from the above the following:
+1 - median_income attribute has a strong positive correlation with the median_house_value
+2 - total_bedrooms and population attribute has nearly no correlation with the median_house_value
+3 - latitude attribute has a small negative correlation with the median_house_value
+"""
+
+# IMPORTING NEEDED LIBRARIES TO VISUALISE CORRELATION MATRIX
+from pandas.plotting import scatter_matrix
+
+# SETTING THE ATTRIBUTES WE WANT TO VISUALISE
+attributes = ["median_house_value", "median_income", "total_bedrooms", "latitude"]
+scatter_matrix(housing[attributes], figsize=(12, 8))
+plt.show()
