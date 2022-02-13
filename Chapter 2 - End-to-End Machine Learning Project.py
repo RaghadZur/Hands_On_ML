@@ -271,3 +271,6 @@ correlation_matrix = housing.corr()
 # PRINTING THE NEW CORRELATION VALUES WITH THE COMBINED ATTRIBUTES
 print(correlation_matrix["median_house_value"].sort_values(ascending=False))
 
+"""
+WE SEE THAT THE NEW COMBINED ATTRIBUTES DO GIVE A SLIGHTLY BETTER CORRELATION VALUES THAN THE ORIGINAL VALUES
+"""
