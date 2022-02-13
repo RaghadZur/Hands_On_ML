@@ -170,11 +170,11 @@ housing.plot(kind="scatter", x="longitude", y="latitude", alpha=0.1)
 # PARAMETER ALPHA IS HOW TRANSPARENT EACH CIRCLE IS
 # PARAMETER C STANDS FOR COLOUR, MEANING THE COLOUR OF EACH CIRCLE ON THE PLOT IS DEPENDANT ON THE PRICE VALUE
 # PARAMETER S STANDS FOR SIZE, MEANING THE SIZE OF EACH CIRCLE ON THE PLOT IS DEPENDANT ON THE POPULATION IN THE AREA
-
+# PARAMETER CMAP TO SET THE COLOUR SCHEME SINCE WE HAVE PARAMETER C
 housing.plot(kind="scatter",
              x="longitude",
              y="latitude",
-             alpha=0.4,
+             alpha=0.3,
              c="median_house_value",
              s=housing["population"]/100,
              cmap=plt.get_cmap("jet")
