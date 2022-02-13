@@ -176,7 +176,7 @@ housing.plot(kind="scatter",
              y="latitude",
              alpha=0.3,
              c="median_house_value",
-             s=housing["population"]/100,
+             s=housing["population"] / 100,
              cmap=plt.get_cmap("jet")
              )
 plt.show()
@@ -195,14 +195,14 @@ urllib.request.urlretrieve(url, os.path.join(images_path, filename))
 import matplotlib.image as mpimg
 
 # READING THE IMAGE OF THE MAP INTO THE SCRIPT
-california_img=mpimg.imread(os.path.join(images_path, filename))
+california_img = mpimg.imread(os.path.join(images_path, filename))
 
 # SAME AS PREVIOUSLY DONE, CREATED A DETAILED PLOT
 ax = housing.plot(kind="scatter",
                   x="longitude",
                   y="latitude",
-                  figsize=(10,7),
-                  s=housing['population']/100,
+                  figsize=(10, 7),
+                  s=housing['population'] / 100,
                   label="Population",
                   c="median_house_value",
                   cmap=plt.get_cmap("jet"),
@@ -220,10 +220,18 @@ plt.xlabel("Longitude", fontsize=14)
 # SETTING THE COLOURBAR
 prices = housing["median_house_value"]
 tick_values = np.linspace(prices.min(), prices.max(), 11)
-cbar = plt.colorbar(ticks=tick_values/prices.max())
-cbar.ax.set_yticklabels(["$%dk"%(round(v/1000)) for v in tick_values], fontsize=14)
+cbar = plt.colorbar(ticks=tick_values / prices.max())
+cbar.ax.set_yticklabels(["$%dk" % (round(v / 1000)) for v in tick_values], fontsize=14)
 
 # LABELLING THE COLOURBAR AND SHOWING THE PLOT
 cbar.set_label('Median House Value', fontsize=16)
 plt.legend(fontsize=16)
 plt.show()
+
+# LOOKING FOR CORRELATIONS --------------------------------------------------------------------------------------------
+
+# CORRELATION MATRIX BETWEEN EVERY ATTRIBUTE
+correlation_matrix = housing.corr()
+
+# SINCE WE ARE INTERESTED IN HOUSE VALUES, WE CAN CHECK THE CORRELATION BETWEEN EACH ATTRIBUTE AND THE HOUSE VALUES
+print(correlation_matrix["median_house_value"].sort_values(ascending=False))
