@@ -191,18 +191,29 @@ filename = "california.png"
 url = DOWNLOAD_ROOT + "images/end_to_end_project/" + filename
 urllib.request.urlretrieve(url, os.path.join(images_path, filename))
 
-
+# IMPORTING THE NEEDED LIBRARY
 import matplotlib.image as mpimg
 
 # READING THE IMAGE OF THE MAP INTO THE SCRIPT
 california_img=mpimg.imread(os.path.join(images_path, filename))
 
-ax = housing.plot(kind="scatter", x="longitude", y="latitude", figsize=(10,7),
-                  s=housing['population']/100, label="Population",
-                  c="median_house_value", cmap=plt.get_cmap("jet"),
-                  colorbar=False, alpha=0.4)
+# SAME AS PREVIOUSLY DONE, CREATED A DETAILED PLOT
+ax = housing.plot(kind="scatter",
+                  x="longitude",
+                  y="latitude",
+                  figsize=(10,7),
+                  s=housing['population']/100,
+                  label="Population",
+                  c="median_house_value",
+                  cmap=plt.get_cmap("jet"),
+                  colorbar=False,
+                  alpha=0.4)
+
+# SETTING THE BACKGROUND MAP IMAGE WITH HALF TRANSPARENCY BY SETTING ALPHA TO 0.5 PLUS ADDING AXIS
 plt.imshow(california_img, extent=[-124.55, -113.80, 32.45, 42.05], alpha=0.5,
            cmap=plt.get_cmap("jet"))
+
+# SETTING THE X AND Y LABELS FOR THE PLOT
 plt.ylabel("Latitude", fontsize=14)
 plt.xlabel("Longitude", fontsize=14)
 
@@ -213,5 +224,4 @@ cbar.ax.set_yticklabels(["$%dk"%(round(v/1000)) for v in tick_values], fontsize=
 cbar.set_label('Median House Value', fontsize=16)
 
 plt.legend(fontsize=16)
-save_fig("california_housing_prices_plot")
 plt.show()
