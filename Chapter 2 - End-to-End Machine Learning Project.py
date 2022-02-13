@@ -148,6 +148,17 @@ print(housing["income_categ"].value_counts() / len(housing))
 for set_ in (strat_train_set, strat_test_set):
     set_.drop("income_categ", axis=1, inplace=True)
 
-
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% VISUALISING AND DISCOVERING THE DATASET %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# MAKING A COPY OF THE TRAINING SET (TO PREVENT HARMING THE DATASET)
+housing = strat_train_set.copy()
+
+# VISUALISING GEOGRAPHICAL DATA ---------------------------------------------------------------------------------------
+
+"""
+THE DATASET CONTAINS TWO GEOGRAPHICAL ATTRIBUTES WHICH ARE LATITUDE AND LONGITUDE WHICH WE CAN USE TO VISUALISE 
+THE GEOGRAPHICAL DATA
+"""
+
+# PLOTTING A SCATTER PLOT
+housing.plot(kind="scatter", x="longitude", y="latitude")
