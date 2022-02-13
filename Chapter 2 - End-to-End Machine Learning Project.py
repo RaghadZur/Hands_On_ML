@@ -261,9 +261,9 @@ plt.show()
 # COMBINING ATTRIBUTES ------------------------------------------------------------------------------------------------
 
 # COMBING SOME ATTRIBUTES FOR A MORE USEFUL INFORMATION
-housing["rooms_per_household"] = housing["total_rooms"]/housing["households"]
-housing["bedrooms_per_room"] = housing["total_bedrooms"]/housing["total_rooms"]
-housing["population_per_household"]=housing["population"]/housing["households"]
+housing["rooms_per_household"] = housing["total_rooms"] / housing["households"]
+housing["bedrooms_per_room"] = housing["total_bedrooms"] / housing["total_rooms"]
+housing["population_per_household"] = housing["population"] / housing["households"]
 
 # UPDATING THE CORRELATION MATRIX
 correlation_matrix = housing.corr()
@@ -285,8 +285,7 @@ housing = strat_train_set.drop("median_house_value", axis=1)
 # COPYING THE TARGETS COLUMN
 housing_labels = strat_train_set["median_house_value"].copy()
 
-
-# CLEANING THE DATA----------------------------------------------------------------------------------------------------
+# HANDLING MISSING VALUES----------------------------------------------------------------------------------------------
 """
 TO HANDLE MISSING VALUES IN A DATASET, WE HAVE THREE OPTIONS:
 1 - DROP THE ENTIRE COLUMN
@@ -297,8 +296,7 @@ TO HANDLE MISSING VALUES IN A DATASET, WE HAVE THREE OPTIONS:
 # THE ATTRIBUTE TOTAL_BEDROOMS CONTAINS LOTS OF MISSING VALUES SO WE CAN DO ONE OF THE FOLLOWING TO HANDLE IT:
 
 # LETS FIRST CREATE A COPY SO WE DONT HARM THE ORIGINAL TRAINING SET WHICH WE WILL USE LATER
-sample_incomplete_rows = housing[housing.isnull().any(axis=1)].head()
-print(sample_incomplete_rows)
+sample_incomplete_rows = housing[housing.isnull().any(axis=1)]
 
 # ONE - DROP THE ENTIRE COLUMN
 sample_incomplete_rows.drop("total_bedrooms", axis=1)
@@ -309,3 +307,24 @@ sample_incomplete_rows.dropna(subset=["total_bedrooms"])
 # THREE - REPLACE THE MISSING VALUES WITH THE MEAN VALUE OF THE COLUMN
 median = housing["total_bedrooms"].median()
 sample_incomplete_rows["total_bedrooms"].fillna(median, inplace=True)
+
+# HANDLING MISSING VALUES USING SK-LEARN-------------------------------------------------------------------------------
+
+# IMPORTING THE SIMPLEIMPUTER CLASS FROM SK-LEARN
+from sklearn.impute import SimpleImputer
+
+# SETTING THE IMPUTER TO USE THE MEDIAN METHOD
+imputer = SimpleImputer(strategy="median")
+
+# CREATING A COPY OF THE DATASET THAT DOESNT CONTAIN THE CATEGORICAL ATTRIBUTE OCEAN_PROXIMITY
+# THIS IS BECAUSE THE MEDIAN CANT BE COMPUTED FOR CATEGORICAL ATTRIBUTES
+housing_num = housing.drop("ocean_proximity", axis=1)
+
+# FITTING THE IMPUTER INTO OUR TRAINING DATA,THIS WILL COMPUTE THE MEDIAN FOR EVERY ATTRIBUTE AND STORE IT
+imputer.fit(housing_num)
+
+# RETURNING THE COMPUTED MEDIAN VALUES BY THE IMPUTER
+print(imputer.statistics_)
+
+# TO CHECK THE ABOVE MEDIAN VALUES ARE CORRECT, WE CAN COMPARE IT TO MANUALLY COMPUTED MEDIAN VALUES BELOW
+print(housing_num.median().values)
