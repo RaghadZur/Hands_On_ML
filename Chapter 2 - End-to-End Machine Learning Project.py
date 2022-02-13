@@ -123,3 +123,9 @@ NUMERICAL ATTRIBUTE, WE WILL BE CREATING AN INCOME CATEGORY ATTRIBUTE
 """
 
 # CREATING A CATEGORICAL ATTRIBUTE FOR THE MEDIAN_INCOME NUMERICAL ATTRIBUTE
+housing["income_categ"] = pd.cut(housing["median_income"],
+                                 bins=[0, 1.5, 3, 4.5, 6, np.inf],
+                                 labels=[1, 2, 3, 4, 5])
+
+# HISTOGRAM OF THE NEW ATTRIBUTE
+housing["income_categ"].hist()
