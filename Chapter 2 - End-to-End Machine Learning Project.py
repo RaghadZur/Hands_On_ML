@@ -401,11 +401,14 @@ from sklearn.base import BaseEstimator, TransformerMixin
 # column index
 rooms_ix, bedrooms_ix, population_ix, households_ix = 3, 4, 5, 6
 
+
 class CombinedAttributesAdder(BaseEstimator, TransformerMixin):
-    def __init__(self, add_bedrooms_per_room=True): # no *args or **kargs
+    def __init__(self, add_bedrooms_per_room=True):  # no *args or **kargs
         self.add_bedrooms_per_room = add_bedrooms_per_room
+
     def fit(self, X, y=None):
         return self  # nothing else to do
+
     def transform(self, X):
         rooms_per_household = X[:, rooms_ix] / X[:, households_ix]
         population_per_household = X[:, population_ix] / X[:, households_ix]
@@ -416,12 +419,13 @@ class CombinedAttributesAdder(BaseEstimator, TransformerMixin):
         else:
             return np.c_[X, rooms_per_household, population_per_household]
 
+
 attr_adder = CombinedAttributesAdder(add_bedrooms_per_room=False)
 housing_extra_attribs = attr_adder.transform(housing.values)
 
 col_names = "total_rooms", "total_bedrooms", "population", "households"
 rooms_ix, bedrooms_ix, population_ix, households_ix = [
-    housing.columns.get_loc(c) for c in col_names] # get the column indices
+    housing.columns.get_loc(c) for c in col_names]  # get the column indices
 
 # FEATURE SCALING ----------------------------------------------------------------------------------
 
@@ -445,9 +449,7 @@ COMMENT METHODS TO PERFORM FEATURE SCALING ARE
 
 # TRANSFORMATION PIPELINE -------------------------------------------------------------------------
 """
-THE SKLEARN PIPELINE IS USED TO APPLY THE THE TRANSFORMATION NEEDED AT THE PREPROCESSING STAGE TO PREPARE THE DATA
-
-
+THE SKLEARN PIPELINE IS USED TO APPLY THE THE TRANSFORMATION NEEDED SEQUENTIALLY TO PREPARE THE DATA
 """
 # IMPORTING THE PIPELINE CLASS IN THE SKLEARN LIBRARY
 from sklearn.pipeline import Pipeline
@@ -457,10 +459,10 @@ from sklearn.preprocessing import StandardScaler
 
 # CREATING A LIST THAT CONTAINS ALL THE PREPROCESSING TRANSFORMATIONS THAT WE WANT TO APPLY TO OUR NUMERICAL ATTRIBUTES
 num_pipeline = Pipeline([
-        ('imputer', SimpleImputer(strategy="median")),
-        ('attribs_adder', CombinedAttributesAdder()),
-        ('std_scaler', StandardScaler()),
-    ])
+    ('imputer', SimpleImputer(strategy="median")),
+    ('attribs_adder', CombinedAttributesAdder()),
+    ('std_scaler', StandardScaler()),
+])
 
 # FITTING THOSE TRANSFORMATIONS INTO OUT NUMERICAL COLUMNS
 housing_num_tr = num_pipeline.fit_transform(housing_num)
@@ -474,9 +476,9 @@ cat_attribs = ["ocean_proximity"]
 
 # CALLING THE COLUMN TRANSFORMER CLASS
 full_pipeline = ColumnTransformer([
-        ("num", num_pipeline, num_attribs),
-        ("cat", OneHotEncoder(), cat_attribs),
-    ])
+    ("num", num_pipeline, num_attribs),
+    ("cat", OneHotEncoder(), cat_attribs),
+])
 
 # FITTING THE PIPELINE INTO THE ENTIRE TRAINING DATA, NOT ONLY THE NUMERICAL COLUMNS
 housing_prepared = full_pipeline.fit_transform(housing)
