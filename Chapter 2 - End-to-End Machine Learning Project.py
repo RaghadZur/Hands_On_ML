@@ -485,6 +485,26 @@ housing_prepared = full_pipeline.fit_transform(housing)
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SELECTING AND TRAINING THE MODEL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# IMPORTING THE LINEAR REGRESSION CLASS FROM SK-LEARN LIBRARY
+from sklearn.linear_model import LinearRegression
+
+# FITTING THE DATA INTO THE LINEAR REGRESSION MODEL
+lin_reg = LinearRegression()
+lin_reg.fit(housing_prepared, housing_labels)
+
+# TESTING THE PERFORMANCE OF THE MODEL ON THE FIRST 5 ROWS
+# SELECTING THE FIRST 5 ROWS OF THE DATA
+some_data = housing.iloc[:5]
+
+# SELECTING THE FIRST 5 ROWS OF THE LABELS
+some_labels = housing_labels.iloc[:5]
+
+# APPLYING THE PREPROCESSING TRANSFORMATIONS (WE USED TRANSFORM AND NOT FIT TRANSFORM HERE AS WE ARE EVALUATING)
+some_data_prepared = full_pipeline.transform(some_data)
+
+# PRINTING OUT THE PREDICTIONS AND THE LABELS TO COMPARE
+print("Predictions:", lin_reg.predict(some_data_prepared))
+print("Labels:", list(some_labels))
 
 # TRAINING AND EVALUATING ON THE TRAINING SET ----------------------------------------------------
 
