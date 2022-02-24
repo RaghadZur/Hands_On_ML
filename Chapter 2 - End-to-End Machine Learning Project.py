@@ -485,7 +485,7 @@ housing_prepared = full_pipeline.fit_transform(housing)
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SELECTING AND TRAINING THE MODEL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# IMPORTING THE LINEAR REGRESSION CLASS FROM SK-LEARN LIBRARY
+# IMPORTING THE LINEAR REGRESSION MODEL FROM SK-LEARN LIBRARY
 from sklearn.linear_model import LinearRegression
 
 # FITTING THE DATA INTO THE LINEAR REGRESSION MODEL
@@ -505,6 +505,44 @@ some_data_prepared = full_pipeline.transform(some_data)
 # PRINTING OUT THE PREDICTIONS AND THE LABELS TO COMPARE
 print("Predictions:", lin_reg.predict(some_data_prepared))
 print("Labels:", list(some_labels))
+
+# IMPORTING MEAN SQUARED ERROR FUNCTION FROM SKLEARN LIBRARY TO USE IT FOR EVALUATING OUR MODEL
+from sklearn.metrics import mean_squared_error
+
+# RUNNING THE MODEL ON THE ENTIRE DATASET
+housing_predictions = lin_reg.predict(housing_prepared)
+
+# EVALUATING THE MODEL USING RMSE
+lin_mse = mean_squared_error(housing_labels, housing_predictions)
+lin_rmse = np.sqrt(lin_mse)
+print(lin_rmse)
+
+"""
+THE ABOVE VALUES TELLS US THAT THE MODEL IS MOST LIKELY UNDERFITTING, TO OVERCOME THIS WE NEED TO EITHER:
+- PROVIDE BETTER FEATURES
+OR 
+- MAKE THE MODEL MORE POWERFUL
+"""
+
+# IMPORTING THE DECISION TREE REGRESSION MODEL
+from sklearn.tree import DecisionTreeRegressor
+
+# FITTING THE DATA INTO THE DECISION TREE REGRESSION MODEL
+tree_reg = DecisionTreeRegressor(random_state=42)
+tree_reg.fit(housing_prepared, housing_labels)
+
+# EVALUATING THE NEW MODEL USING RMSE
+housing_predictions = tree_reg.predict(housing_prepared)
+tree_mse = mean_squared_error(housing_labels, housing_predictions)
+tree_rmse = np.sqrt(tree_mse)
+
+# EVALUATING USING CROSS VALIDATION -------------------------------------------------------------
+"""
+K-FOLD CROSS VALIDATION IS THE PROCESS OF RANDOMLY SPLITTING THE TRAINING SET INTO K DISTINCT SUBSETS CALLED FOLDS, 
+THEN TRAINING AND EVALUATING THE MODEL K TIMES, PICKING A DIFFERENT FOLD FOR EVALUATION EVERYTIME AND TRAINING ON THE
+OTHER (K-1) FOLDS. THE RESULT WILL PROVIDE AN ARRAY WITH K EVALUATING SCORES.
+"""
+
 
 # TRAINING AND EVALUATING ON THE TRAINING SET ----------------------------------------------------
 
